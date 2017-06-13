@@ -33,7 +33,7 @@ public class ConsultaEmpleados extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		//long tiempo_inicial = System.currentTimeMillis();
 		log.debug("Entro en DoGet de Consulta empleados");
 		EmpleadoService es = new EmpleadoService();
 		List<Empleado> le = es.getEmpleados();
@@ -49,6 +49,11 @@ public class ConsultaEmpleados extends HttpServlet {
 		request.setAttribute("lempleados", le);
 		request.getRequestDispatcher("listaempleados.jsp")
 		.forward(request, response);
+		//long tiempo_final = System.currentTimeMillis();
+		//long tiempo_total = tiempo_final-tiempo_inicial;
+		//long segundos = tiempo_total/1000;
+		//log.debug("HA TARDADO " + segundos + " s");
+		//log.debug("HA TARDADO " + tiempo_total + " ms");
 		//response.getWriter().append("LLAMO A GET Served at: ").append(request.getContextPath());
 	}
 
