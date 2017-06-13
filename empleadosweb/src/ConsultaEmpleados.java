@@ -17,7 +17,8 @@ import org.apache.log4j.Logger;
 @WebServlet("/ConsultaEmpleados")
 public class ConsultaEmpleados extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final static Logger log = Logger.getLogger("mylog");
+	private final static Logger log = 
+			Logger.getLogger("mylog");
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,14 +34,17 @@ public class ConsultaEmpleados extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		log.error("ERROR pero bien pq esto funciona");
+		log.debug("Entro en DoGet de Consulta empleados");
 		EmpleadoService es = new EmpleadoService();
 		List<Empleado> le = es.getEmpleados();
 	
+		log.debug("Lista de empleados recuperada");
 		for (Empleado e : le)
 		{
 			System.out.println(e.getNombre() + " "+ e.getId());
 		}
+		
+		log.debug("redirijo al jsp");
 		//TODO falta generera el jsp
 		request.setAttribute("lempleados", le);
 		request.getRequestDispatcher("listaempleados.jsp")

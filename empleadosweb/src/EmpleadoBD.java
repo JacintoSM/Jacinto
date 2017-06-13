@@ -11,6 +11,7 @@ import java.util.List;
 
 public class EmpleadoBD {
 	
+	/*
 	static {
 		// registro el driver
 		try {
@@ -20,7 +21,7 @@ public class EmpleadoBD {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	public List<Empleado> getEmpleadosBD ()
 	{
 		List<Empleado> l_empleados = null;
@@ -33,12 +34,12 @@ public class EmpleadoBD {
 
 		try {
 			
-			// obtengo la conexión
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "HR", "adalid");
+			// obtengo la conexión                                     //192.168.1.40:9090/empleadosweb/consulta.html
+			connection = Pool.getConnection(); //DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe", "HR", "adalid");
 			// creo el statement
 			statement = connection.createStatement();
 			// ejecuto la consulta
-			resultset = statement.executeQuery("SELECT FIRST_NAME, EMPLOYEE_ID FROM EMPLOYEES");
+			resultset = statement.executeQuery("SELECT FIRST_NAME, EMPLOYEE_ID FROM EMPLOYEES ORDER BY EMPLOYEE_ID ASC ");
 
 			l_empleados = new ArrayList<Empleado>();
 			Empleado e_auxiliar = null;
@@ -59,9 +60,9 @@ public class EmpleadoBD {
 			e.printStackTrace();
 		} finally {
 			try {
-				resultset.close();
-				statement.close();
-				connection.close();
+				
+				Pool.liberarRecursos
+				(connection, statement, resultset);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
