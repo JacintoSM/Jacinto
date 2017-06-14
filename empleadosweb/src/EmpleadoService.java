@@ -24,5 +24,16 @@ public class EmpleadoService {
 		return l_empleados;
 	}
 	
+	public boolean validarUsuario 
+	(String nombre, String pwd)
+	{
+		boolean valido = false;
+		EmpleadoBD empleadoBD = null;
+		
+			empleadoBD = new EmpleadoBD();
+			valido = empleadoBD.existeEmpleadoEnBD(nombre, pwd);
+			
+		return valido;
+	}
 
 }

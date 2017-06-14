@@ -22,6 +22,39 @@ public class EmpleadoBD {
 		}
 	}
 	*/
+	
+	public boolean existeEmpleadoEnBD 
+	(String nombre, String pwd)
+	{
+		boolean existe = false;
+		Connection conexion = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
+			try{
+				
+				int ipwd = Integer.parseInt(pwd);
+				conexion = Pool.getConnection();
+				st = conexion.createStatement();
+				rs = st.executeQuery("SELECT"
+						+ " EMPLOYEE_ID FROM"
+						+ " EMPLOYEES WHERE"
+						+ " FIRST_NAME = '"
+						+ nombre+"' AND "
+						+ " EMPLOYEE_ID = "
+						+ipwd
+						);
+				existe = rs.next();
+			}catch (Exception e) {
+				//TODO usar el log
+				e.printStackTrace();
+			} finally {
+				Pool.liberarRecursos(conexion, st, rs);
+			}
+		
+		return existe;
+	}
+	
 	public List<Empleado> getEmpleadosBD ()
 	{
 		List<Empleado> l_empleados = null;
