@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -56,8 +57,14 @@ public class LoginServlet extends HttpServlet {
 				log.debug("USUARIO EXISTE");
 				//el usuario existe
 				//le mando al jsp de bienvenida
+				HttpSession sesion = request.getSession();
+				sesion.setAttribute("nombre", usuario);
+				sesion.setAttribute("id", pwd);
+				request.getRequestDispatcher("inicio.jsp").forward(request, response);
 			} else {
 				log.debug("USUARIO NO EXISTE");
+				request.getRequestDispatcher("error.jsp").forward(request, response);
+				//response.sendRedirect("error.jsp");
 				//el usuario no existe
 				//le mando a una página de error
 			}

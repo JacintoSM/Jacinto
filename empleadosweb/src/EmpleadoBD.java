@@ -23,6 +23,41 @@ public class EmpleadoBD {
 	}
 	*/
 	
+	public Empleado obtenerEmpleadoBD (int id)
+	{
+		Empleado empleado = null;
+		Connection conexion = null;
+		Statement st = null;
+		ResultSet rs = null;
+		
+			try{
+				conexion = Pool.getConnection();
+				st = conexion.createStatement();
+				rs = st.executeQuery("SELECT EMPLOYEE_ID"
+								+", FIRST_NAME"+
+								", LAST_NAME " 
+								+ " , EMAIL FROM "
+								+ "EMPLOYEES WHERE "
+								+ "EMPLOYEE_ID = "
+								+ id);
+				rs.next();//me sitúo en el primer registro
+				int nempleado =rs.getInt("EMPLOYEE_ID");
+				String fname = rs.getString("FIRST_NAME");
+				String lname = rs.getString("LAST_NAME");
+				String email = rs.getString("EMAIL");
+				empleado = new Empleado
+						(fname, nempleado, lname, email);
+				
+			}catch (Exception e) {
+				// TODO: handle exception
+			}finally {
+				Pool.liberarRecursos(conexion, st, rs);
+			}
+		
+		
+		return empleado;
+	}
+	
 	public boolean existeEmpleadoEnBD 
 	(String nombre, String pwd)
 	{

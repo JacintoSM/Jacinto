@@ -4,6 +4,18 @@ import java.util.List;
 
 public class EmpleadoService {
 	
+	public Empleado obtenerInfoEmpleado (int id)
+	{
+		Empleado empleado = null;
+		EmpleadoBD empleadoBD = null;
+			
+			empleadoBD = new EmpleadoBD();
+			empleado = empleadoBD.obtenerEmpleadoBD(id);
+		
+		return empleado;
+		
+	}
+	
 	public List<Empleado> getEmpleados ()
 	{
 		List<Empleado> l_empleados = null;
