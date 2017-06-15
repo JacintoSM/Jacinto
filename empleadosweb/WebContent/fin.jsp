@@ -8,14 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>INFO EMPLEADO</h1>
-Nombre ${empleado.nombre}<br>
-Apellido ${empleado.apellido}<br>
-Id ${empleado.id}<br>
-Email ${empleado.email}<br>
-<a href="CerrarSesion">SALIR</a>
-<!--<c:forEach items="${lempleados}" var="empleado">
-	<c:out value="${empleado.nombre}"></c:out> <c:out value="${empleado.id}"></c:out><br>
-</c:forEach>-->
+CERRASTE SESIÓN
+<a href="login.html">Volver a LOGIN</a>
 </body>
 </html>
