@@ -32,6 +32,12 @@ public class ConsultarMiInfo extends HttpServlet {
 		HttpSession sesion = request.getSession(false);
 		String id = (String)sesion.getAttribute("id");
 		EmpleadoService es = new EmpleadoService();
+		int id_empleado = Integer.parseInt(id);
+		
+		Empleado empleado = es.obtenerInfoEmpleado(id_empleado);
+		
+		request.setAttribute("empleado", empleado);
+		request.getRequestDispatcher("miperfil.jsp").forward(request, response);
 		
 	}
 
