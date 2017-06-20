@@ -1,6 +1,9 @@
 
 
 import java.io.IOException;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,12 +32,17 @@ public class ConsultarMiInfo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		ServletContext sc = request.getServletContext();
+		Map<Integer, Empleado> m_empleados = 
+				(Map<Integer, Empleado>)sc.getAttribute("mapae");
+		
 		HttpSession sesion = request.getSession(false);
 		String id = (String)sesion.getAttribute("id");
 		EmpleadoService es = new EmpleadoService();
 		int id_empleado = Integer.parseInt(id);
 		
-		Empleado empleado = es.obtenerInfoEmpleado(id_empleado);
+		Empleado empleado =  m_empleados.get(id_empleado);//es.obtenerInfoEmpleado(id_empleado);
 		
 		request.setAttribute("empleado", empleado);
 		request.getRequestDispatcher("miperfil.jsp").forward(request, response);

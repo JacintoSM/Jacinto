@@ -8,9 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>LISTA EMPLEADOS</h1>
-<c:forEach items="${lsesion}" var="empleado">
-	<c:out value="${sesion}"></c:out> <c:out value="${empleado.id}"></c:out><br>
+<br>
+Usuarios con sesion<br>
+<c:forEach items="${mapa_nombre_sesion}" var="nombre_sesion">
+${nombre_sesion.value}<br>
 </c:forEach>
 </body>
 </html>

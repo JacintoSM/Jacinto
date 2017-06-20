@@ -1,6 +1,10 @@
 
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +64,32 @@ public class LoginServlet extends HttpServlet {
 				HttpSession sesion = request.getSession();
 				sesion.setAttribute("nombre", usuario);
 				sesion.setAttribute("id", pwd);
-				request.getRequestDispatcher("inicio.jsp").forward(request, response);
+				
+				//ACTUALIZAR EL MAPA DEL CONTEXTO
+				//INTRODUCIENDO LA NUEVA SESIÓN Y EL NOMBRE
+				ServletContext sc = request.getServletContext();
+				Map<String, String> mapa_nombre_sesion =
+				(Map<String, String>)sc.getAttribute("mapa_nombre_sesion");
+				String clave_sesion = sesion.getId();
+				mapa_nombre_sesion.put(clave_sesion, usuario);
+				log.debug("Mapa sesion actualizado ");
+				
+				
+				//request.getRequestDispatcher("inicio.jsp").forward(request, response);
+				request.getRequestDispatcher("inicio.jsp").include(request, response);
+				request.getRequestDispatcher("mostrar_sesiones.jsp").include(request, response);
+				
+				
+				
+				
+				
+				/*ServletContext sc = request.getServletContext();
+				List<String> lsesiones = (List<String>)sc.getAttribute("lsesiones");
+				lsesiones.add(usuario);
+				sc.setAttribute("lsesiones", lsesiones);
+				request.getRequestDispatcher("inicio.jsp").include(request, response);
+				request.getRequestDispatcher("listasesion.jsp").include(request, response);
+				*/
 			} else {
 				log.debug("USUARIO NO EXISTE");
 				request.getRequestDispatcher("error.jsp").forward(request, response);

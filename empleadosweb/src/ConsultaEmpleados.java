@@ -1,8 +1,13 @@
 
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,10 +44,30 @@ public class ConsultaEmpleados extends HttpServlet {
 		List<Empleado> le = es.getEmpleados();
 	
 		log.debug("Lista de empleados recuperada");
-		for (Empleado e : le)
+		Map<Integer, Empleado> m_empleados = new HashMap<Integer, Empleado>();
+		
+		for (Empleado e : le)//for each
 		{
 			System.out.println(e.getNombre() + " "+ e.getId());
+			m_empleados.put(e.getId(), e);
 		}
+		
+		log.debug("MAPA EMPLEADOS CREADO");
+		Set<Integer> conjunto_claves = m_empleados.keySet();
+		Iterator<Integer> it = conjunto_claves.iterator();
+		int clave = -1;
+		Empleado eaux = null;
+		while (it.hasNext())
+		{
+			clave = it.next();
+			eaux = m_empleados.get(clave);
+			System.out.println(eaux.getNombre() + " "+ eaux.getId());
+		}
+		
+		ServletContext sc = request.getServletContext();
+		sc.setAttribute("mapae", m_empleados);
+		log.debug("MAPA ALMACENADO EN EL CONTEXTO");
+		
 		
 		log.debug("redirijo al jsp");
 		//TODO falta generera el jsp

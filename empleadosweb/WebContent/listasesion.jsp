@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>LISTA EMPLEADOS</h1>
-<c:forEach items="${lsesion}" var="empleado">
+<c:forEach items="${lsesiones}" var="sesion">
 	<c:out value="${sesion}"></c:out> <c:out value="${empleado.id}"></c:out><br>
 </c:forEach>
 </body>
